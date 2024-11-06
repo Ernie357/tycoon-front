@@ -137,7 +137,7 @@ const Landing: React.FC = () => {
     }
     //<div className="hidden lg:block bg-ryuji bg-no-repeat w-6/12 min-h-screen bg-cover flex items-center justify-center" />
     return (
-        <div className="flex bg-landing-joker bg-no-repeat object-contain font-main bg-persona-red min-h-screen w-screen overflow-auto">
+        <div className="flex bg-persona-red 2xl:bg-landing-joker bg-no-repeat object-contain font-main bg-persona-red min-h-screen w-screen overflow-auto">
             <div className="w-full lg:w-6/12 flex flex-col pt-12 items-center h-screen">
                 <h1 className="shadow shadow-black text-2xl mb-5 bg-white border-2 border-black p-3 w-3/4 text-center tracking-wider"><b>Welcome to Tycoon.io!</b></h1>
                 <form className="h-full w-3/4 flex flex-col gap-5 md:gap-12">
@@ -222,7 +222,7 @@ const Landing: React.FC = () => {
                             }
                             { !webcamOn && <button onClick={handleCharacterBackward} className="text-4xl md:text-7xl text-white bg-persona-red hover:text-gray-200"><FaArrowAltCircleRight /></button> }
                         </div>
-                        { errorMessage && <p className="text-sm md:text-2xl mb-12">{errorMessage}</p> }
+                        { errorMessage && <p className="text-sm md:text-2xl mb-12 text-red-500 p-3 bg-white"><b>{errorMessage}</b></p> }
                     </div>
                 </form>
             </div>
