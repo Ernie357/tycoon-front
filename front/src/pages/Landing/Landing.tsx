@@ -194,7 +194,7 @@ const Landing: React.FC = () => {
                             {webcamOn ? 'Close Camera' : 'Take a Picture'}
                         </button>
                         <div className="flex justify-center items-center gap-5 mb-12">
-                            { !webcamOn && <button onClick={handleCharacterForward} className="text-4xl md:text-7xl text-white bg-persona-red hover:text-gray-200"><FaArrowAltCircleLeft /></button> }
+                            { !webcamOn && <button onClick={handleCharacterForward} className="text-4xl md:text-7xl text-white hover:text-gray-200"><FaArrowAltCircleLeft /></button> }
                             {!webcamOn ?
                             <img 
                                 src={playerImage} 
@@ -214,7 +214,7 @@ const Landing: React.FC = () => {
                                 />
                                 <button 
                                     onClick={handleCapture}
-                                    className="shadow shadow-black bg-white p-3 border-2 border-black w-3/4 text-center text-sm md:text-xl mb-0 md:mb-5 sm:text-sm bg-persona-red hover:bg-gray-200"
+                                    className="shadow shadow-black bg-white p-3 border-2 border-black w-3/4 text-center text-sm md:text-xl mb-0 md:mb-5 sm:text-sm hover:bg-gray-200"
                                 >
                                     Capture
                                 </button>
