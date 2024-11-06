@@ -220,7 +220,7 @@ const Landing: React.FC = () => {
                                 </button>
                             </div>
                             }
-                            { !webcamOn && <button onClick={handleCharacterBackward} className="text-4xl md:text-7xl text-white bg-persona-red hover:text-gray-200"><FaArrowAltCircleRight /></button> }
+                            { !webcamOn && <button onClick={handleCharacterBackward} className="text-4xl md:text-7xl text-white hover:text-gray-200"><FaArrowAltCircleRight /></button> }
                         </div>
                         { errorMessage && <p className="text-sm md:text-2xl mb-12 text-red-500 p-3 bg-white"><b>{errorMessage}</b></p> }
                     </div>
