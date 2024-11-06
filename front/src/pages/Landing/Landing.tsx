@@ -91,7 +91,7 @@ const Landing: React.FC = () => {
             setErrorMessage(`Name cannot exceed ${nameLimit} characters.`);
             return;
         }
-        const isRoomCodeValid = (await axios.get(`https://tycoon-backend.onrender.com/isRoomCodeValid?roomCode=${roomCode}`)).data;
+        const isRoomCodeValid = (await axios.get(`https://tycoon-back.onrender.com/isRoomCodeValid?roomCode=${roomCode}`)).data;
         if(isRoomCodeValid) {
             navigate(roomCode, { state: { playerName: name, playerImage: playerImage } });
         } else {
@@ -116,7 +116,7 @@ const Landing: React.FC = () => {
             setErrorMessage(`Name cannot exceed ${nameLimit} characters.`);
             return;
         }
-        const newCode = (await axios.get('https://tycoon-backend.onrender.com/roomcode')).data;
+        const newCode = (await axios.get('https://tycoon-back.onrender.com/roomcode')).data;
         newCode && navigate(`/${newCode}`, { state: { playerName: name, playerImage: playerImage } });
     }
     const handleCharacterBackward = (event: React.MouseEvent<HTMLButtonElement>) => {

@@ -120,7 +120,7 @@ const Game: React.FC = () => {
         }
     }, [gameState.roundNumber]);
     useEffect(() => {
-        const newSocket: Socket = io('https://tycoon-backend.onrender.com');
+        const newSocket: Socket = io('https://tycoon-back.onrender.com');
         setSocket(newSocket);
         newSocket.on('connect', () => {
             newSocket.emit('join', id, playerName, playerImage);
