@@ -121,7 +121,7 @@ const Game: React.FC = () => {
         }
     }, [gameState.roundNumber]);
     useEffect(() => {
-        const newSocket: Socket = io('https://tycoon-back.onrender.com', { transports: ['websocket'] });
+        const newSocket: Socket = io('https://tycoon-back.netlify.app', { transports: ['websocket'] });
         setSocket(newSocket);
         newSocket.on('connect', () => {
             newSocket.emit('join', id, playerName, playerImage);
