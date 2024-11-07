@@ -134,13 +134,11 @@ const Game: React.FC = () => {
         newSocket.on('room join error', (reasonForError: string) => {
             alert(reasonForError);
             newSocket.emit('leave', id);
-            newSocket.disconnect();
             console.log('room join error event emitted')
             navigate('/');
         });
         const handleCleanup = () => {
             newSocket.emit('leave', id);
-            newSocket.disconnect();
             console.log('leave event emitted from cleanup');
         };
         window.addEventListener('beforeunload', handleCleanup);
