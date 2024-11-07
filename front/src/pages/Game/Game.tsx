@@ -130,7 +130,6 @@ const Game: React.FC = () => {
         newSocket.on('update game state', (newState: GameState) => {
             setGameState(newState);
             console.log('game state updated from socket response');
-            console.log(newState);
         });
         newSocket.on('room join error', (reasonForError: string) => {
             alert(reasonForError);
@@ -187,6 +186,7 @@ const Game: React.FC = () => {
     const logMessages = gameState.messages.filter((message: Message) => {
         return message.sender === null;
     });
+    console.log(gameState);
     return (
         <div className="bg-persona-red w-screen min-h-screen pb-12 font-main">
             <div className="grid grid-cols-2 grid-rows-3 md:grid-cols-4 md:grid-rows-2 2xl:flex gap-y-12 xl:gap-12 justify-items-center p-5 xl:p-12 border-b-2 border-black shadow-2xl shadow-black shadow-bottom">
