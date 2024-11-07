@@ -99,12 +99,6 @@ const Game: React.FC = () => {
         socket?.emit('trade cards', id, playerName, getTradeName(rank, gameState.users), selectedCards);
         setSelectedCards([]);
     }
-    const handleLeave = () => {
-        socket?.emit('leave', id);
-        socket?.disconnect();
-        console.log('handle leave event emitted');
-        navigate('/');
-    }
 
     useEffect(() => {
         if(gameState.passCount >= gameState.activeUsers.length - 1 && gameState.passCount !== 0 && playerName === gameState.host) {
@@ -238,7 +232,7 @@ const Game: React.FC = () => {
             </div>
             <div className="flex gap-5 pl-12">
                 { !gameState.gameIsActive && gameState.users.length === 4 && playerName === gameState.host && <button onClick={startGame} className="bg-white border-2 border-black shadow shadow-black p-2 hover:bg-gray-200">Start Game</button> }
-                <button onClick={handleLeave} className="bg-white border-2 border-black shadow shadow-black p-2 hover:bg-gray-200">Leave Room</button>
+                <Link to='/' className="bg-white border-2 border-black shadow shadow-black p-2 hover:bg-gray-200">Leave Room</Link>
             </div>
         </div>
     );
