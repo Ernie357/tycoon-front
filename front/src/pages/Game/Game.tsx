@@ -102,6 +102,7 @@ const Game: React.FC = () => {
     const handleLeave = () => {
         socket?.emit('leave', id);
         socket?.disconnect();
+        console.log('handle leave event emitted');
         navigate('/');
     }
 
@@ -130,19 +131,23 @@ const Game: React.FC = () => {
         setSocket(newSocket);
         newSocket.on('connect', () => {
             newSocket.emit('join', id, playerName, playerImage);
+            console.log('join event emitted');
         });
         newSocket.on('update game state', (newState: GameState) => {
             setGameState(newState);
+            console.log('game state updated from socket response');
         });
         newSocket.on('room join error', (reasonForError: string) => {
             alert(reasonForError);
-            navigate('/');
             newSocket.emit('leave', id);
             newSocket.disconnect();
+            console.log('room join error event emitted')
+            navigate('/');
         });
         const handleCleanup = () => {
             newSocket.emit('leave', id);
             newSocket.disconnect();
+            console.log('leave event emitted from cleanup');
         };
         window.addEventListener('beforeunload', handleCleanup);
         return () => {
