@@ -136,6 +136,7 @@ const Game: React.FC = () => {
         newSocket.on('update game state', (newState: GameState) => {
             setGameState(newState);
             console.log('game state updated from socket response');
+            console.log(gameState);
         });
         newSocket.on('room join error', (reasonForError: string) => {
             alert(reasonForError);
