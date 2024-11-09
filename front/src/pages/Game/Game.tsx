@@ -113,7 +113,7 @@ const Game: React.FC = () => {
         }
     }, [gameState.roundNumber]);
     useEffect(() => {
-        const newSocket: Socket = io('https://68.183.135.205:5000', { transports: ['websocket', 'polling', 'flashsocket'] });
+        const newSocket: Socket = io('https://68.183.135.205:3000', { transports: ['websocket', 'polling', 'flashsocket'] });
         setSocket(newSocket);
         newSocket.on('connect', () => {
             newSocket.emit('join', id, playerName, playerImage);
