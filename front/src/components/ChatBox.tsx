@@ -21,8 +21,7 @@ interface Props {
     user: User,
     socket: Socket | null,
     messages: Message[],
-    roomCode: string | undefined,
-    chatOpen: boolean
+    roomCode: string | undefined
 }
 
 const ChatBox: React.FC<Props> = (props: Props) => {
@@ -48,7 +47,7 @@ const ChatBox: React.FC<Props> = (props: Props) => {
     }, [props.messages]);
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Enter' && props.chatOpen) {
+            if (event.key === 'Enter') {
                 handleMessageSend();
             }
         };
@@ -58,7 +57,7 @@ const ChatBox: React.FC<Props> = (props: Props) => {
         };
     }, [message]);
     return (
-        <div className="bg-white shadow shadow-black border-2 border-black p-3 flex flex-col 2xl:w-96 h-72 lg:h-full w-full" style={{ visibility: props.chatOpen ? 'visible' : 'hidden' }}>
+        <div className="bg-white shadow shadow-black border-2 border-black p-3 flex flex-col 2xl:w-96 h-full lg:h-full w-full">
             <div ref={messageContainerRef} className="flex flex-col flex-grow h-0 overflow-y-scroll border-black border-2 p-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {messageElements}
             </div>
@@ -68,6 +67,7 @@ const ChatBox: React.FC<Props> = (props: Props) => {
                     type="text"
                     onChange={handleMessageChange}
                     value={message}
+                    placeholder="Enter chat..."
                 />
                 <button onClick={handleMessageSend} className="text-sm sm:text-lg font-main"><b>Send</b></button>
             </div>

@@ -91,7 +91,7 @@ const Landing: React.FC = () => {
             setErrorMessage(`Name cannot exceed ${nameLimit} characters.`);
             return;
         }
-        const isRoomCodeValid = (await axios.get(`https://tycoon-back.fly.dev/isRoomCodeValid?roomCode=${roomCode}`)).data;
+        const isRoomCodeValid = (await axios.get(`http://68.183.135.205:5000/isRoomCodeValid?roomCode=${roomCode}`)).data;
         if(isRoomCodeValid) {
             navigate(roomCode, { state: { playerName: name, playerImage: playerImage } });
         } else {
@@ -116,7 +116,7 @@ const Landing: React.FC = () => {
             setErrorMessage(`Name cannot exceed ${nameLimit} characters.`);
             return;
         }
-        const newCode = (await axios.get('https://tycoon-back.fly.dev/roomcode')).data;
+        const newCode = (await axios.get('http://68.183.135.205:5000/roomcode')).data;
         newCode && navigate(`/${newCode}`, { state: { playerName: name, playerImage: playerImage } });
     }
     const handleCharacterBackward = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -199,7 +199,7 @@ const Landing: React.FC = () => {
                             <img 
                                 src={playerImage} 
                                 alt="Player Icon"
-                                className="shadow-2xl shadow-black border-2 border-black w-1/2 bg-white"
+                                className="shadow-2xl shadow-black border-2 border-black aspect-square w-44 lg:w-80 bg-transparent"
                             />
                         : 
                             <div className="flex flex-col items-center gap-5">

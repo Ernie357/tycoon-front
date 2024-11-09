@@ -35,7 +35,7 @@ module.exports = {
         'persona-red': '#ee1c25',
         'persona-gold': '#8c6723',
         'persona-yellow': '#f2e852',
-        'persona-black': '0d0d0d'
+        'persona-black': '#0d0d0d'
       },
       rotate: {
         'dialogue-name': '-15deg'
