@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Socket, io } from "socket.io-client";
 import UserBox from "../../components/UserBox";
@@ -12,6 +12,7 @@ import EventLog from "../../components/EventLog";
 import DialogueBox from "../../components/DialogueBox";
 
 const Game: React.FC = () => {
+    const { id } = useParams();
     const defaultGameState: GameState = {
         activeCards: [],
         roundNumber: 0,
@@ -26,15 +27,19 @@ const Game: React.FC = () => {
         gameIsActive: false,
         host: '',
         messages: [],
-        roomCode: ''
+        roomCode: id ? id : ''
     };
     const navigate = useNavigate();
     const location = useLocation();
     const { playerName, playerImage } = location.state;
-    const { id } = useParams();
     const [gameState, setGameState] = useState<GameState>(defaultGameState);
     const [socket, setSocket] = useState<Socket | null>(null);
     const [selectedCards, setSelectedCards] = useState<CardType[]>([]);
+    const gameStateRef = useRef(gameState);  
+
+    useEffect(() => {
+        gameStateRef.current = gameState;
+    }, [gameState]);
 
     const startGame = () => {
         gameState.users.length === 4 && socket?.emit('start game', id);
@@ -113,15 +118,23 @@ const Game: React.FC = () => {
         }
     }, [gameState.roundNumber]);
     useEffect(() => {
-        const newSocket: Socket = io('https://68.183.135.205:5001', { transports: ['websocket', 'polling', 'flashsocket'] });
+        const newSocket: Socket = io('https://api.personatycoon.com', { transports: ['websocket', 'polling', 'flashsocket'] });
         setSocket(newSocket);
         newSocket.on('connect', () => {
-            newSocket.emit('join', id, playerName, playerImage);
-            console.log('join event emitted');
+            const stringState = localStorage.getItem('gameState');
+            console.log('string state: ' + stringState);
+            const state: GameState = stringState ? JSON.parse(stringState) : null;
+            if(state && state.roomCode && state.roomCode === id) {
+                console.log('reconnecting');
+                newSocket.emit('join', state, id, playerName, playerImage);
+            } else {
+                newSocket.emit('join', null, id, playerName, playerImage);
+                console.log('join event emitted');
+            }
+            localStorage.removeItem('gameState');
         });
         newSocket.on('update game state', (newState: GameState) => {
             setGameState(newState);
-            console.log('game state updated from socket response');
         });
         newSocket.on('room join error', (reasonForError: string) => {
             alert(reasonForError);
@@ -130,7 +143,11 @@ const Game: React.FC = () => {
             navigate('/');
         });
         const handleCleanup = () => {
+            if (gameStateRef.current) {
+                localStorage.setItem('gameState', JSON.stringify(gameStateRef.current));
+            }
             newSocket.emit('leave', id);
+            newSocket.disconnect();
             console.log('leave event emitted from cleanup');
         };
         window.addEventListener('beforeunload', handleCleanup);
@@ -180,11 +197,6 @@ const Game: React.FC = () => {
         return message.sender !== null;
     });
 
-    const logMessages = gameState.messages.filter((message: Message) => {
-        return message.sender === null;
-    });
-
-    console.log(gameState);
     return (
         <div className="bg-persona-red w-screen min-h-screen font-main">
             <div className="bg-gradient-to-br from-transparent to-amber-500 flex-col flex 2xl:flex-row gap-6 sm:gap-12 justify-items-center p-6 xl:p-12 2xl:mb-12 border-b-2 border-black shadow 2xl:shadow-2xl 2xl:shadow-black shadow-black shadow-bottom">
