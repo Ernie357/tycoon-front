@@ -147,7 +147,6 @@ const Game: React.FC = () => {
                 localStorage.setItem('gameState', JSON.stringify(gameStateRef.current));
             }
             newSocket.emit('leave', id);
-            newSocket.disconnect();
             console.log('leave event emitted from cleanup');
         };
         window.addEventListener('beforeunload', handleCleanup);
